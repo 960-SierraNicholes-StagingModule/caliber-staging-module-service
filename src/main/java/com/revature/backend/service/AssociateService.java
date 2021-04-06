@@ -20,17 +20,17 @@ public class AssociateService {
   }
 
   public List<Associate> saveAssociates(List<Associate> aList) {
-      // call the appropriate Repo method to save (aka insert) associates into DB
     return associateRepo.saveAll(aList);
   }
 
   public Associate getAssociateById(int id) {
-    // TODO call the appropriate Repo method to update an associate into DB
     return associateRepo.findById(id);
   }
 
   public void updateAssociate(Associate associate) {
-    // TODO call the appropriate Repo method to update an associate into DB
     associateRepo.save(associate);
   }
+  public Associate getAssociateByEmail(String email) {
+	    return associateRepo.findByEmail(email);
+	  }
 }

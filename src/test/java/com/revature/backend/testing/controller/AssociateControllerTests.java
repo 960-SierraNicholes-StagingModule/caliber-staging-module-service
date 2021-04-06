@@ -3,6 +3,7 @@ package com.revature.backend.testing.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -15,6 +16,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 
@@ -32,6 +35,7 @@ import com.revature.backend.model.dto.AssociateDTO;
 import com.revature.backend.service.AssociateService;
 import com.revature.backend.service.BackendService;
 import com.revature.backend.service.BatchService;
+import com.revature.backend.util.ClientMessage;
 
 
 /**
@@ -48,6 +52,7 @@ import com.revature.backend.service.BatchService;
  */
 @SpringBootTest
 public class AssociateControllerTests {
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	ObjectMapper objectMapper = new ObjectMapper();
 
@@ -77,8 +82,8 @@ public class AssociateControllerTests {
 	public void setUp() {
 		mockMvc = MockMvcBuilders.standaloneSetup(associateController).build();
 		Associate associate1 = new  Associate(1, "salesID", "email@email.com", "John", "Doe", manager, batch, AssociateStatus.STAGING);
-		Associate associate2 = new  Associate(2, "salesID", "email@email.com", "John", "Doe", manager, batch, AssociateStatus.STAGING);
-		AssociateDTO associateDTO1 = new AssociateDTO(1, "salesID", "email@email.com", "John", "Doe", 1, 1,AssociateStatus.STAGING.toString());
+		Associate associate2 = new  Associate(2, "salesID", "email1@email.com", "John", "Doe", manager, batch, AssociateStatus.STAGING);
+		AssociateDTO associateDTO1 = new AssociateDTO(1, "salesID", "email1@email.com", "John", "Doe", 1, 1,AssociateStatus.STAGING.toString());
 		AssociateDTO associateDTO2 = new AssociateDTO(2, "salesID", "email@email.com", "John", "Doe", 1, 1,AssociateStatus.STAGING.toString());
 		associates.add(associate1);
 		associates.add(associate2);
@@ -176,5 +181,16 @@ public class AssociateControllerTests {
 			+ "\"status_id\": 2"
 			+ " }"
 		)).andExpect(status().isOk()).andExpect(jsonPath("$").value("Associate updated successfully"));
+	}
+
+	@Test
+	public void checkAssociateLogin() throws Exception{
+		MvcResult mvcResult = this.mockMvc.perform(post("/associate").contentType("application/json")
+							  .content(objectMapper.writeValueAsString(new ClientMessage("email1@email.com"))))
+							  .andReturn();
+		String actualResponse = mvcResult.getResponse().getContentAsString();
+		logger.debug("actual response is: " + actualResponse);
+		logger.debug("expected response is: " + objectMapper.writeValueAsString(associates.get(0)));
+		assertThat(actualResponse).isEqualToIgnoringWhitespace(objectMapper.writeValueAsString(associates.get(0)));
 	}
 }

@@ -8,4 +8,6 @@ import com.revature.backend.model.Associate;
 @Repository
 public interface AssociateRepository extends JpaRepository<Associate, Integer>{
 	Associate findById(int id);
+
+	Associate findByEmail(String email);
 }
