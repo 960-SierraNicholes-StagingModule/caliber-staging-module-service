@@ -76,6 +76,26 @@ Due to the remote nature work amidst the COVID pandemic, Revature Staging Manage
 - Create :root css variables to allow standardization of a color scheme across the application.
 - As a User, I should be able to add a note to SWOT items.
 
+### Sprint 3 Team Members
+- Ryan Lansdon - Refactored GetBatchById, added front-end progress report functionality for SWOTs, integrated user story teams, made styling changes to fit Revature styling guidelines.
+- Roger Moore - Refactored HttpUrlConnections, front end testing.
+- Crystal McDuffie - Refactored UpdateSwot in the frontend, deleted methods to delete a SWOT and associated functionality, refactored deleteItem and createNewItem methods in the backend, created associate SWOT view.
+- McCaulley Granville - Refactored unused, redundant, and/or confusing code in the backend, as well as simplifying some of the flow control. Implemented and tested API for inserting and retrieving SWOT progress reports.
+- Mojid Salawu - Refactored unused fields, replaced Sysout calls, updated chrome driver.
+- Sabrina Djeddi - Created the view feedback associate component, refactored the view feedback page, added logout to view feedback component, refactored the navbar.
+- Milo Ventura - Refactored browser refresh when displaying new data, added text boxes, reduced input for creating SWOT analysis, created the ability to view feedback as an associate.
+- Samuel Fernandez - Refactored GetBatchById, added associate to firebase and associate login logic, worked on creating associate SWOT view.
+- Steven Moctezuma - Refactored error handling, added capability to where managers can view associate progress, added spider and bar graph to SWOT view.
+- Alique Ivery - Created Progress Report model, Progress Report Repository, and added a set of Progress Reports to the SWOT model.
+- Kurt Werber - Refactored unused code and added generics for type safety, wrote front-end tests, wrote service methods for graph component.
+
+#### Sprint 3 User Stories
+- As an Associate I should be able to view any SWOT analysis assigned to me.
+- As an Associate I should be able to view interview feedback Staging Managers have relayed from interviewers.
+- As an Associate I should be able to report on my progress towards goals set out for me by my SWOT analyses.
+- As a Staging Manager, When I create a new SWOT analysis, I should only input a name for the analysis then I should be directed to a new empty SWOT.
+- As a Staging Manager, when I receive new associates and I am creating their first SWOT analysis, I should see a spider graph and overall comparison for them based on caliber data. 
+
 **Architecture Diagram**
 
 ![](./imgs/AD.png)
@@ -83,7 +103,7 @@ Due to the remote nature work amidst the COVID pandemic, Revature Staging Manage
 
 **ERD Diagram**
 
-![](./imgs/Sprint2ERD.png)
+![](./imgs/Sprint_3_ERD.png)
 
 
 Associate status' are enum staging, released, and project. Analysis type are enum strengths, weaknesses, opportunities and threats.
