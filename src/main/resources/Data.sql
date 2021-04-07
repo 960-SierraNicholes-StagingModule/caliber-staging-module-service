@@ -4,11 +4,7 @@ INSERT INTO manager VALUES  (3,'test@email.mail','isa','cat');
 INSERT INTO manager VALUES  (2,'test@test.com','isa','cat');
 INSERT INTO batch VALUES(1,'Reston','Sophia','1','Java Full Stack');
 INSERT INTO batch VALUES(2,'WVU','Jacob','1','JWA Full Stack');
-<<<<<<< HEAD
 INSERT INTO associate VALUES (1, 'mock4.associatecdad37b2-449a-48e1-92dc-c1887a281d8b@mock.com', 'testA', 'associate','1A', 1, 1, 4);
-=======
-INSERT INTO associate VALUES (1, 'associate@revature.com', 'testA', 'associate','1A', 1, 1, 4);
->>>>>>> 67064a08be9f4ef233640cc1d43209d4771fcbdf
 INSERT INTO associate VALUES (2, 'testemail@email.com', 'testB', 'associate','1B', 1, 1, 4);
 INSERT INTO associate VALUES (3, 'testemail@email.com', 'testC', 'associate','1C', 1, 1, 4);
 INSERT INTO associate VALUES (4, 'testemail@email.com', 'testD','associate','1D', 1, 1, 4);
