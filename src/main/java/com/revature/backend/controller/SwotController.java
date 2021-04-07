@@ -67,6 +67,22 @@ public class SwotController {
 
 	/**
 	 *
+	 * @param swotId
+	 * @return a SWOT for the corresponding swot id
+	 *
+	 * GET request for fetching a SWOT based on a swot's id as found in the
+	 * RESTful URL.
+	 *
+	 * Returns the SWOT as a JSON array with a 200 code if successful.
+	 */
+	@GetMapping(path = "/viewSwot/{swotId}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<Swot> viewSelectedSwot(@PathVariable("swotId") int swotId) {
+		Swot selectedSwot = swotService.retrieveSwotById(swotId);
+		return ResponseEntity.ok(selectedSwot);
+	}
+	
+	/**
+	 *
 	 * @return List of all SWOTs in the database with a 200 HTTP status.
 	 *
 	 * GET request for fetching all existing SWOTs in the system. Returns the List
@@ -79,20 +95,6 @@ public class SwotController {
 	public ResponseEntity<List<Swot>> viewAllSwot() {
 		List<Swot> swotList = swotService.retrieveAllSwot();
 		return ResponseEntity.ok(swotList);
-	}
-
-	/**
-	 *
-	 * @param swotId
-	 * @return ResponseEntity with a 200 HTTP status indicating whether or not deletion was successful
-	 *
-	 * DELETE request for deleting a SWOT. Returns ResponseEntity with a message indicating whether
-	 * or not deletion was successful.
-	 */
-	@DeleteMapping(path = "/delete/{swotId}")
-	public ResponseEntity<ClientMessage> deleteSwot(@PathVariable("swotId") int swotId) {
-		ClientMessage body = swotService.deleteSwot(swotId) ? SUCCESSFULLY_DELETED : DELETION_FAILED;
-		return ResponseEntity.ok(body);
 	}
 
 	/**

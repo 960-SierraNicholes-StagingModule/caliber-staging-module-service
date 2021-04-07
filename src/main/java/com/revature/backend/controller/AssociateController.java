@@ -11,9 +11,12 @@ import com.revature.backend.service.AssociateService;
 import com.revature.backend.service.BackendService;
 import com.revature.backend.service.BatchService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +26,8 @@ import com.revature.backend.model.AssociateStatus;
 
 @RestController
 public class AssociateController {
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+	 
 	private final BackendService backendService;
 	private final AssociateService assocService;
 	private final BatchService batchService;
@@ -33,6 +38,19 @@ public class AssociateController {
     this.assocService = assocService;
     this.batchService = batchService;
   }
+  
+  
+  
+  	@PostMapping("/associate")
+	public ResponseEntity<Associate> getLoggedInAssociate(@RequestBody String email) {
+		Associate associate = new Associate();
+		try {
+			associate = assocService.getAssociateByEmail(email);
+		} catch(Exception e) {
+			logger.debug("Associate is: "+ associate + " | Error thrown my manager controller.");
+		}
+		return new ResponseEntity<>(associate, HttpStatus.OK);
+	}
 
 	/**
 	 * Gets associates for a given manager

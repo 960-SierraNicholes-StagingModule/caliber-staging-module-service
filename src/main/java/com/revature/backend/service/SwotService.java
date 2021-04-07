@@ -1,6 +1,10 @@
 package com.revature.backend.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.springframework.stereotype.Service;
 
@@ -60,21 +64,19 @@ public class SwotService {
 	public List<Swot> retrieveAllSwotByAssociateId(int associateId) {
 		return swotRepository.findAllByAssociateId(associateId);
 	}
-
+	
 	/**
-	 *
-	 * @param swotId
-	 * @return true if swot was deleted successfully, false otherwise
-	 *
-	 * Given a swot ID, finds the corresponding swot and
-	 * deletes it from the database.
-	 *
-	 * Returns true if successful, false otherwise
-	 */
-	public boolean deleteSwot(int swotId) {
-		Swot swot = swotRepository.findById(swotId);
-		swotRepository.delete(swot);
-		return true;
+	*
+	* @param swotId
+	* @return a swot of the corresponding swot id
+	*
+	* Retrieves a swot by a swot id
+	* Takes in the swot's id (as an int)
+	* as a parameter.
+	* Returns a Swot for that id
+	*/
+	public Swot retrieveSwotById(int swotId) {
+		return swotRepository.findById(swotId);
 	}
 
 	/**
@@ -87,6 +89,9 @@ public class SwotService {
 	 * Returns true if successful, false otherwise.
 	 */
 	public boolean createNewItem(AnalysisItem analysisItem) {
+		Swot updateSwot = swotRepository.findById(analysisItem.getSwot().getId());
+		updateSwot.setLastModifiedNow();
+		swotRepository.save(updateSwot);
 		return analysisItemRepository.save(analysisItem) != null;
 	}
 
@@ -125,8 +130,15 @@ public class SwotService {
 	 * otherwise.
 	 */
 	public boolean deleteItem(int analysisItemId) {
-		analysisItemRepository.deleteById(analysisItemId);
-		return true; //TODO: this will always return true, fix the condition.
+		Optional<AnalysisItem> optionalAnalysisItem = analysisItemRepository.findById(analysisItemId);
+		AnalysisItem analysisItem = optionalAnalysisItem.orElse(null);
+		if(analysisItem!=null) {
+			Swot updateSwot = swotRepository.findById(analysisItem.getSwot().getId());
+			updateSwot.setLastModifiedNow();
+			swotRepository.save(updateSwot);
+			analysisItemRepository.deleteById(analysisItemId);
+		}
+		return false; 
 	}
 
 	/**

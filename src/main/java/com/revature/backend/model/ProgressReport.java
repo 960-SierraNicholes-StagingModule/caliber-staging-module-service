@@ -1,6 +1,7 @@
 package com.revature.backend.model;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ public class ProgressReport {
 	private String report;
 	
 	@Column(name="created_date")
-	private LocalDate createdDate;
+	private ZonedDateTime createdDate;
 	public Integer getId() {
 		return id;
 	}
@@ -33,10 +34,10 @@ public class ProgressReport {
 	public void setReport(String report) {
 		this.report = report;
 	}
-	public LocalDate getCreatedDate() {
+	public ZonedDateTime getCreatedDate() {
 		return createdDate;
 	}
-	public void setCreatedDate(LocalDate createdDate) {
+	public void setCreatedDate(ZonedDateTime createdDate) {
 		this.createdDate = createdDate;
 	}
 	@Override
